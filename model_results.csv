@@ -1,0 +1,13 @@
+model,train_RMSE,validate_RMSE
+train_mean,477010.2,479022.19
+train_median,491569.8,492880.69
+linear_regression_ols,367980.6554,369039.8772
+lasso_lars,367980.8981,369041.8822
+tweedie_regressor_glm,389552.3893,388018.0318
+polynomial_regression,364349.5674,365217.6465
+ridge_regressor,367983.4645,369072.5991
+sgd_regressor,368323.8206,369760.0555
+ard_regressor,367980.678,369038.5611
+bayesian_ridge,367980.6632,369041.4706
+huber_regressor,380055.2504,381676.2189
+passive_aggressive_regressor,405268.7725,407598.3922
