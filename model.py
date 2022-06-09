@@ -26,7 +26,7 @@ def county_validate_split(validate_scaled):
     return validate_la, validate_orange, validate_ventura
 
 def county_test_split(test_scaled):
-    # Separating train, validate, test out by county
+    # Separating test out by county
 
     test_la = test_scaled[test_scaled.county == 'los_angeles']
     test_orange = test_scaled[test_scaled.county == 'orange']
@@ -223,9 +223,9 @@ def county_models_test(y_test_la, y_test_orange, y_test_ventura):
     rmse_test_la = mean_squared_error(y_test_la.taxvaluedollarcnt, y_test_la.taxvalue_pred_lm2)**(1/2)
     rmse_test_orange = mean_squared_error(y_test_orange.taxvaluedollarcnt, y_test_orange.taxvalue_pred_lm2)**(1/2)
 
-    print("\nRMSE for Polynomial Model for Los Angeles county\n\Test/Out-of-Ssample: ", rmse_test_la)
-    print("\nRMSE for Polynomial Model for Orange county\n\Test/Out-of-Ssample: ", rmse_test_orange)
-    print("\nRMSE for Polynomial Model for Ventura county\n\Test/Out-of-Ssample: ", rmse_test_ventura)
+    print("\nRMSE for Polynomial Model for Los Angeles county\nTest/Out-of-Sample: ", rmse_test_la)
+    print("\nRMSE for Polynomial Model for Orange county\nTest/Out-of-Sample: ", rmse_test_orange)
+    print("\nRMSE for Polynomial Model for Ventura county\nTest/Out-of-Sample: ", rmse_test_ventura)
 
 def results_plot():
     plt.figure(figsize=(13,11))
