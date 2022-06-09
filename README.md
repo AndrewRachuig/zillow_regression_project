@@ -1,6 +1,6 @@
 # <center>Predicting Tax Value of Homes using Zillow Data </center>
 
-<img src="img/Logo-Zillow.jpeg" width=800 height=300 />
+<img src="img/Logo-Zillow.jpeg" width=800 height=275 />
 
 ## Project Summary
 
