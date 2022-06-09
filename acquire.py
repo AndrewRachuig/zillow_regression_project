@@ -50,7 +50,9 @@ def minimum_sqr_ft(df):
     '''
     Function that takes in a dataframe and finds the minimum sq footage necessary given an input number of bathrooms and bedrooms.
     
-    Returns a total minimum amount
+    Arguments: A dataframe containing bathroomcnt and bedroomcnt columns.
+
+    Returns: a total minimum amount of square feet necessary for a specified house.
     '''
     # min square footage for type of room
     bathroom_min = 10

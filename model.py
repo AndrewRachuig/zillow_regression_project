@@ -8,6 +8,9 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.metrics import mean_squared_error
 
 def county_train_split(train_scaled):
+    '''
+    This function takes in a scaled train dataframe and returns 3 train dataframes split by county.
+    '''
     # Separating train out by county
 
     train_la = train_scaled[train_scaled.county == 'los_angeles']
@@ -17,6 +20,9 @@ def county_train_split(train_scaled):
     return train_la, train_orange, train_ventura
 
 def county_validate_split(validate_scaled):
+    '''
+    This function takes in a scaled validate dataframe and returns 3 validate dataframes split by county.
+    '''
     # Separating validate out by county
 
     validate_la = validate_scaled[validate_scaled.county == 'los_angeles']
@@ -26,6 +32,9 @@ def county_validate_split(validate_scaled):
     return validate_la, validate_orange, validate_ventura
 
 def county_test_split(test_scaled):
+    '''
+    This function takes in a scaled test dataframe and returns 3 test dataframes split by county.
+    '''
     # Separating test out by county
 
     test_la = test_scaled[test_scaled.county == 'los_angeles']
@@ -36,6 +45,13 @@ def county_test_split(test_scaled):
 
 
 def plot_all_models(model_results):
+    '''
+    This function takes in a dataframe consisting of RSME results on train and validate subsets from models previously run and plots 
+    them out; it highlights the mean and median results as a baseline and then shows the Polynomial Regressor model to be the best
+    performing of them all.
+
+    Arguments: A dataframe consisting of RSME results on train and validate subsets for various models.
+    '''
     plt.figure(figsize=(10,10))
     mod = sns.scatterplot(data = model_results, palette='flare_r', s = 100, markers = ['o','o'])
     mod.set(xticklabels=[])
@@ -47,6 +63,10 @@ def plot_all_models(model_results):
     plt.show()
 
 def county_validate_plots(y_validate_la, y_validate_orange, y_validate_ventura):
+    '''
+    This function takes in a set of y_validate dataframes for Los Angeles, Orange and Ventura counties and produces a scatterplot of
+    the resulting predictions vs actual data points for tax value target.
+    '''
     plt.figure(figsize=(18, 7))
     plt.subplot(133)
     sns.scatterplot(data = y_validate_ventura, x = 'taxvaluedollarcnt', y = 'taxvalue_pred_lm2')
@@ -67,7 +87,17 @@ def county_validate_plots(y_validate_la, y_validate_orange, y_validate_ventura):
     plt.show()
 
 def county_train_x_y(train_la, train_orange, train_ventura):
-    
+    '''
+    This function takes in train dataframes split by county, defines features for the model, and splits the dataframes into X and y
+    subsets for each county train dataframe.  It then outputs all of these split dataframes.
+
+    Returns:    X_train_la - Dataframe with feature variables for modeling this specific county.
+                y_train_la - Dataframes containing the target variable for modeling this specific county.
+                X_train_orange - Dataframe with feature variables for modeling this specific county.
+                y_train_orange - Dataframe containing target variable for modeling this specific county.
+                X_train_ventura - Dataframe with feature variables for modeling this specific county.
+                y_train_ventura - Dataframe containing target variable for modeling this specific county.
+    '''
     X_train_la = train_la[['bathroomcnt', 'bedroomcnt', 'calculatedfinishedsquarefeet', 'lotsizesquarefeet', 'yearbuilt']]
     y_train_la = pd.DataFrame(train_la['taxvaluedollarcnt'])
 
@@ -80,6 +110,17 @@ def county_train_x_y(train_la, train_orange, train_ventura):
     return X_train_la, y_train_la, X_train_orange, y_train_orange, X_train_ventura, y_train_ventura
 
 def county_validate_x_y(validate_la, validate_orange, validate_ventura):
+    '''
+    This function takes in validate dataframes split by county, defines features for the model, and splits the dataframes into X and y
+    subsets for each county validate dataframe.  It then outputs all of these split dataframes.
+
+    Returns:    X_validate_la - Dataframe with feature variables for modeling this specific county.
+                y_validate_la - Dataframes containing the target variable for modeling this specific county.
+                X_validate_orange - Dataframe with feature variables for modeling this specific county.
+                y_validate_orange - Dataframe containing target variable for modeling this specific county.
+                X_validate_ventura - Dataframe with feature variables for modeling this specific county.
+                y_validate_ventura - Dataframe containing target variable for modeling this specific county.
+    '''
     
     X_validate_la = validate_la[['bathroomcnt', 'bedroomcnt', 'calculatedfinishedsquarefeet', 'lotsizesquarefeet', 'yearbuilt']]
     y_validate_la = pd.DataFrame(validate_la.taxvaluedollarcnt)
@@ -94,7 +135,17 @@ def county_validate_x_y(validate_la, validate_orange, validate_ventura):
 
 
 def county_test_x_y(test_la, test_orange, test_ventura):
+    '''
+    This function takes in test dataframes split by county, defines features for the model, and splits the dataframes into X and y
+    subsets for each county test dataframe.  It then outputs all of these split dataframes.
 
+    Returns:    X_test_la - Dataframe with feature variables for modeling this specific county.
+                y_test_la - Dataframes containing the target variable for modeling this specific county.
+                X_test_orange - Dataframe with feature variables for modeling this specific county.
+                y_test_orange - Dataframe containing target variable for modeling this specific county.
+                X_test_ventura - Dataframe with feature variables for modeling this specific county.
+                y_test_ventura - Dataframe containing target variable for modeling this specific county.
+    '''
     X_test_la = test_la[['bathroomcnt', 'bedroomcnt', 'calculatedfinishedsquarefeet', 'lotsizesquarefeet', 'yearbuilt']]
     y_test_la = pd.DataFrame(test_la.taxvaluedollarcnt)
 
@@ -107,6 +158,11 @@ def county_test_x_y(test_la, test_orange, test_ventura):
     return X_test_la, y_test_la, X_test_orange, y_test_orange, X_test_ventura, y_test_ventura
 
 def la_county_model(X_train_la, y_train_la, X_validate_la, y_validate_la, X_test_la, y_test_la):
+    '''
+    This function takes in all requisite dataframes for creating a polynomial model for Los Angeles county. It creates a Polynomial 
+    Regression model, makes predictions and attaches those predictions to the y dataframes. It prints out the RSME values for train and
+    validate subsets. Finally, it returns y_train_la, y_validate_la, y_test_la subsets to be used later if desired.
+    '''
     # making the polynomial features to get a new set of features
     pf_la = PolynomialFeatures(degree=2)
 
@@ -144,6 +200,11 @@ def la_county_model(X_train_la, y_train_la, X_validate_la, y_validate_la, X_test
     return y_train_la, y_validate_la, y_test_la
 
 def orange_county_model(X_train_orange, y_train_orange, X_validate_orange, y_validate_orange, X_test_orange, y_test_orange):
+    '''
+    This function takes in all requisite dataframes for creating a polynomial model for Orange county. It creates a Polynomial 
+    Regression model, makes predictions and attaches those predictions to the y dataframes. It prints out the RSME values for train and
+    validate subsets. Finally, it returns y_train_la, y_validate_la, y_test_la subsets to be used later if desired.
+    '''
     # making the polynomial features to get a new set of features
     pf_orange = PolynomialFeatures(degree=2)
 
@@ -181,6 +242,11 @@ def orange_county_model(X_train_orange, y_train_orange, X_validate_orange, y_val
     return y_train_orange, y_validate_orange, y_test_orange
 
 def ventura_county_model(X_train_ventura, y_train_ventura, X_validate_ventura, y_validate_ventura, X_test_ventura, y_test_ventura):
+    '''
+    This function takes in all requisite dataframes for creating a polynomial model for Ventura county. It creates a Polynomial 
+    Regression model, makes predictions and attaches those predictions to the y dataframes. It prints out the RSME values for train and
+    validate subsets. Finally, it returns y_train_la, y_validate_la, y_test_la subsets to be used later if desired.
+    '''
     # making the polynomial features to get a new set of features
     pf_ventura = PolynomialFeatures(degree=2)
 
@@ -219,6 +285,10 @@ def ventura_county_model(X_train_ventura, y_train_ventura, X_validate_ventura, y
 
 
 def county_models_test(y_test_la, y_test_orange, y_test_ventura):
+    '''
+    This function takes in y_test_la, y_test_orange, y_test_ventura dataframes which contain actual values and predictive values for the
+    target variable based on the model created. It then prints out the RSME values for each model.
+    '''
     rmse_test_ventura = mean_squared_error(y_test_ventura.taxvaluedollarcnt, y_test_ventura.taxvalue_pred_lm2)**(1/2)
     rmse_test_la = mean_squared_error(y_test_la.taxvaluedollarcnt, y_test_la.taxvalue_pred_lm2)**(1/2)
     rmse_test_orange = mean_squared_error(y_test_orange.taxvaluedollarcnt, y_test_orange.taxvalue_pred_lm2)**(1/2)
@@ -228,8 +298,11 @@ def county_models_test(y_test_la, y_test_orange, y_test_ventura):
     print("\nRMSE for Polynomial Model for Ventura county\nTest/Out-of-Sample: ", rmse_test_ventura)
 
 def results_plot():
+    '''
+    This model plots the RSME results for the Mean Baseline, Aggregate Regressor Model, Los Angeles Model, Orange Model, Ventura Model
+    '''
     plt.figure(figsize=(13,11))
-    sns.barplot(x = ['Mean Baseline', 'Baseline Model', 'Los Angeles Model', 'Orange Model', 'Ventura Mdoel'], 
+    sns.barplot(x = ['Mean Baseline', 'Aggregate Regressor Model', 'Los Angeles Model', 'Orange Model', 'Ventura Model'], 
                 y = [479022.1900, 365217.6465, 368333.99640893657, 309071.3777638292, 233689.5022497083], palette='flare')
     plt.axhline(365217, color = '#38a4fc')
     plt.ylabel('Model Error in $', size = 'large')
