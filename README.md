@@ -168,9 +168,9 @@ $H_{a}$ There is a linear correlation between yearbuilt and taxvaluedollarcnt fo
 
 - The exploration of the data and subsequent modeling show that developing individual models for smaller subsets of similar homes will result in better predictive models.
     - For the future, I would like to create models for specific subgroups: e.g.
-        - 0 - 50% group 
-        - 50 - 90% group
-        - Top 10% group
+        - 0 - 50%  of the total squarefeet (or other features) represented in the dataset
+        - 50 - 90%  of the total squarefeet (or other features) represented in the dataset
+        - Top 10%  of the total squarefeet (or other features) represented in the dataset
 - Consider requiring more accurate reporting on listing creation from realtors. This will allow a future analysis to determine usable features.
 ---
 ## Reproduce this project
