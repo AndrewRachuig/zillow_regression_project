@@ -1,7 +1,7 @@
 # <center>Predicting Tax Value of Homes using Zillow Data </center>
 
-<img src="img/Logo-Zillow.jpeg" width=800 height=800 />
----
+<img src="img/Logo-Zillow.jpeg" width=800 height=300 />
+
 ## Project Summary
 
 ### Project Objectives
@@ -28,7 +28,7 @@
 - Field questions about my specific code, approach to the project, findings and model
 
 ### Business Goals
-- Construct an ML Regression model that predict propery tax assessed values ('taxvaluedollarcnt') of Single Family Properties using attributes of the properties. Namely, find a way to create a better model than the one the Data Science team already has.
+- Construct an ML Regression model that predict property tax assessed values ('taxvaluedollarcnt') of Single Family Properties using attributes of the properties. Namely, find a way to create a better model than the one the Data Science team already has.
 - **Find the key drivers** of property value for single family properties.
 - Deliver a report that the data science team can read through and replicate, understand what steps were taken, why and what the outcome was.
 - Make recommendations on what works or doesn't work in prediction these homes' values.
@@ -65,10 +65,9 @@ The following are features I used in my final model.
 - What features are most strongly correlated to tax value of homes?
     - Are any of these correlated to one another? Are there confounding variables? Not truly independent?
 - I think lotsizesquarefeet and calculatedfinishedsquarefeet will have the strongest relationship with the target.
-- I'm unsure how strongly bathroomcnt will correlate, but I suspet bedroomcnt will be relatively strong.
+- I'm unsure how strongly bathroomcnt will correlate, but I suspect bedroomcnt will be relatively strong.
 
 ### Initial hypotheses
-**Question 1:** Is there a difference in tenure between customers who churned and customes who didn't?
 
 **Hypothesis 1:**<br>
 alpha = .05<br>
@@ -76,15 +75,11 @@ $H_{0}$ Homes in Orange County and Ventura County have a lower or equal taxvalue
 
 $H_{a}$ Homes in Orange County and Ventura County have a higher taxvaluedollarcnt than Los Angeles County.
 
-**Question 2:** Is there a difference in monthly_charges between customers who churned and customes who didn't?
-
 **Hypothesis 2:**<br>
 alpha = .05<br>
 $H_{0}$ There is no linear correlation between calculatedfinishedsquarefeet and taxvaluedollarcnt.
 
 $H_{a}$ There is a linear correlation between calculatedfinishedsquarefeet and taxvaluedollarcnt.
-
-**Question 3:** Is there a difference in total_charges between customers who churned and customes who didn't?
 
 **Hypothesis 3:**<br>
 alpha = .05<br>
@@ -97,20 +92,21 @@ alpha = .05<br>
 $H_{0}$ There is no linear correlation between yearbuilt and taxvaluedollarcnt for homes in Orange and Ventura county.
 
 $H_{a}$ There is a linear correlation between yearbuilt and taxvaluedollarcnt for homes in Orange and Ventura county.
+
 ---
 ## Project Plan and Data Science Pipeline
 
 #### Plan
 - **Acquire** data from the Codeup SQL Database. Create an acquire.py file containing functions to automate the process.
     - Initial inquiry into the data to see the shape and layout of things.
-- Clean and **prepare** data for the explore phase. Create prepare.py to store functions I create to automate the cleaning and preperation process. Separate train, validate, test subsets and scaled data.
+- Clean and **prepare** data for the explore phase. Create prepare.py to store functions I create to automate the cleaning and preparation process. Separate train, validate, test subsets and scaled data.
 - Begin **exploration** of the data and ask questions leading to clarity of what is happening in the data. 
     - Clearly define at least three hypotheses, set an alpha, run any statistical tests needed, reject or fail to reject the Null Hypothesis, and document findings and takeaways.
 - Create at least three different regression **models**.
     - Evaluate models on train and validate datasets. Do further hyperparamter tuning to find the best performing models.
 - Choose the model with that performs the best. Do any final tweaking of the model. Automate modeling functions and put them into a model.py file.
 - Evaluate final model on the test dataset.
-- Construct Final Report notebook wherein I show how I arrived at the final regression model by using my created modules. Throughout the notebook,document conclusions, takeaways, and next steps.
+- Construct Final Report notebook wherein I show how I arrived at the final regression model by using my created modules. Throughout the notebook, document conclusions, takeaways, and next steps.
 - Create README.md with data dictionary, project and business goals, initial hypothesis and an executive summary
 ---
 #### Plan &rarr; Acquire
@@ -127,18 +123,18 @@ $H_{a}$ There is a linear correlation between yearbuilt and taxvaluedollarcnt fo
         - Convert datatypes where necessary: objects to numerical; numerical to objects
         - Deal with missing values and nulls
         - Drop superfluous or redundant data columns
-        - Handle redudant categorical variables that can be simplified
+        - Handle redundant categorical variables that can be simplified
         - Change names to snake case where needed
         - Drop duplicates
     - A function which splits the dataframe into 3 subsets: Train, Validate, and Test to be used for Exploration of the data next
     - A function which creates a scaled version of the 3 subsets: Train, Validate, and Test to be used for modeling later
-- Use the prepare.py file to import and do initial cleaning/preperation of the data in the Final Report notebook
+- Use the prepare.py file to import and do initial cleaning/preparation of the data in the Final Report notebook
 ---
 #### Plan &rarr; Acquire &rarr; Prepare &rarr; Explore
 - Do Exploratory Data Analysis of using bivariate and multivariate stats and visualizations to find interactions in the data
 - Explore my key questions and discover answers to my hypotheses by running statistical analysis on data
     - Must include at least 4 visualizations and 2 statistical tests
-- Find key features to use in the model. Similarly find unecessary features which can be dropped
+- Find key features to use in the model. Similarly find unnecessary features which can be dropped
     - Look for correlations, relationships, and interactions between various features and the target
     - Understanding how features relate to one another will be key to understanding if certain features can or should be dropped/combined
 - Document all takeaways and answers to questions/hypotheses
@@ -147,7 +143,7 @@ $H_{a}$ There is a linear correlation between yearbuilt and taxvaluedollarcnt fo
 ---
 #### Plan &rarr; Acquire &rarr; Prepare &rarr; Explore &rarr; Model
 - Do any final pre-modeling data prep (drop/combine columns) as determined most beneficial from the end of the Explore phase
-- Find and establish baseline RSME base on Mean and Mediam values of the train subset. This will give me an RSME level to beat with my models
+- Find and establish baseline RSME base on Mean and Median values of the train subset. This will give me an RSME level to beat with my models
 - Create at least three regression models to predicate tax value of homes.
     - Given time attempt other models.
 - For all models made, compare RSME results from train to validate
@@ -168,7 +164,7 @@ $H_{a}$ There is a linear correlation between yearbuilt and taxvaluedollarcnt fo
     - calculatedfinishedsquarefeet and fips/county
 - Notably homes in Los Angeles county were more disparate than homes on either Orange or Ventura counties. Request further time to dive deeper into the data collected for Los Angeles county to see if I can develop a better performing model.
 
-**Discoveries adn Recommendations**
+**Discoveries and Recommendations**
 
 - The exploration of the data and subsequent modeling show that developing individual models for smaller subsets of similar homes will result in better predictive models.
     - For the future, I would like to create models for specific subgroups: e.g.
